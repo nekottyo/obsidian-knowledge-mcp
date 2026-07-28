@@ -1,0 +1,18 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# golden query の実データは vault 本文の抜粋を含むためコミットしない
+# 派生名 (.local / .bak など) もまとめて除外し、スキーマ例だけを追跡対象に戻す
+eval/golden-queries*.json
+!eval/golden-queries.example.json
+
+# インデックス DB は vault 本文をそのまま保持する。DB_PATH の既定はリポジトリ外だが、
+# DB_PATH=./index.db のように指定すると手元に生成されるため明示的に除外する
+*.db
+*.db-wal
+*.db-shm
+
+.env
+.env.*

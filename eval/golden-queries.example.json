@@ -1,0 +1,20 @@
+[
+  {
+    "query": "一覧取得のたびに関連レコードを 1 件ずつ引いてクエリ数が件数に比例して増える問題",
+    "filter": { "type": "learning", "domain": "db" },
+    "expect_path_contains": "learnings/db",
+    "expect_content_contains": "eager loading",
+    "note": "filter・expect_content_contains ともに指定した最も厳しい形。note は評価では読まれず、query の意図を人間が思い出すためのメモである"
+  },
+  {
+    "query": "外部 API のタイムアウトをリトライするときに同じ処理が二重に走らないようにする方法",
+    "filter": { "domain": "api" },
+    "expect_path_contains": "learnings/api",
+    "note": "expect_content_contains を省いた形。ヒットした path だけを判定する"
+  },
+  {
+    "query": "設定値の既定をコード中に散らさず 1 箇所へ集約する",
+    "expect_path_contains": "references/config.md",
+    "note": "filter を省いた形。vault 全体を検索対象にする"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "name": "obsidian-knowledge-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for hybrid (vector + BM25) search over Obsidian vault knowledge notes",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "obsidian-knowledge-mcp": "dist/src/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "dev-search": "node dist/src/dev-search.js",
+    "eval": "node dist/eval/run-eval.js",
+    "test": "tsc && node --test dist/test/*.test.js",
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "check": "biome check",
+    "check:fix": "biome check --write"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "better-sqlite3": "^12.11.1",
+    "sqlite-vec": "^0.1.9",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

@@ -39,23 +39,28 @@ export function getVaultRoot(): string {
   return path.resolve(vaultRoot);
 }
 
-/** KNOWLEDGE_DIR (必須、VAULT_ROOT からの相対 dir) を返す */
-export function getKnowledgeDir(): string {
-  const knowledgeDir = process.env.KNOWLEDGE_DIR;
-  if (!knowledgeDir) {
+/** KNOWLEDGE_DIR (必須、VAULT_ROOT からの相対 dir をカンマ区切りで複数指定可) を返す */
+export function getKnowledgeDirs(): string[] {
+  const dirs = (process.env.KNOWLEDGE_DIR ?? "")
+    .split(",")
+    .map((d) => d.trim())
+    .filter((d) => d !== "");
+  if (dirs.length === 0) {
     console.error("[config] KNOWLEDGE_DIR environment variable is required");
     throw new Error("KNOWLEDGE_DIR environment variable is required");
   }
-  return knowledgeDir;
+  return dirs;
 }
 
 /** knowledge dir 配下の *.md を再帰的にスキャンし、VAULT_ROOT 相対パス → stat 情報を返す */
 function scanMarkdownFiles(): Map<string, FileEntry> {
   const vaultRoot = getVaultRoot();
-  const baseDir = path.join(vaultRoot, getKnowledgeDir());
-  if (!fs.existsSync(baseDir)) {
-    console.error(`[indexer] knowledge directory does not exist: ${baseDir}`);
-    throw new Error(`knowledge directory does not exist: ${baseDir}`);
+  const baseDirs = getKnowledgeDirs().map((d) => path.join(vaultRoot, d));
+  for (const baseDir of baseDirs) {
+    if (!fs.existsSync(baseDir)) {
+      console.error(`[indexer] knowledge directory does not exist: ${baseDir}`);
+      throw new Error(`knowledge directory does not exist: ${baseDir}`);
+    }
   }
 
   const found = new Map<string, FileEntry>();
@@ -71,7 +76,9 @@ function scanMarkdownFiles(): Map<string, FileEntry> {
       }
     }
   };
-  walk(baseDir);
+  for (const baseDir of baseDirs) {
+    walk(baseDir);
+  }
   return found;
 }
 

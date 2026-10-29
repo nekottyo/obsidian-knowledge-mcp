@@ -43,7 +43,7 @@ claude mcp add obsidian-knowledge \
 | 変数 | 必須 | 既定値 | 説明 |
 |------|------|--------|------|
 | `VAULT_ROOT` | yes | - | 検索対象のルートディレクトリ (絶対パス) |
-| `KNOWLEDGE_DIR` | yes | - | `VAULT_ROOT` 配下の相対ディレクトリ。この配下の `**/*.md` がインデックス対象 |
+| `KNOWLEDGE_DIR` | yes | - | `VAULT_ROOT` 配下の相対ディレクトリ。カンマ区切りで複数指定可 (例: `a/knowledge,a/wiki`)。各配下の `**/*.md` がインデックス対象 |
 | `OLLAMA_URL` | no | `http://localhost:11434` | ollama サーバーの URL |
 | `EMBED_MODEL` | no | `bge-m3` | embedding モデル名 (1024 次元であること) |
 | `DB_PATH` | no | `~/.local/share/obsidian-knowledge-mcp/index.db` | インデックス sqlite ファイル。ディレクトリは自動作成される |
